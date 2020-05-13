@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+ 
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    render json: { status: 200, msg: "Yes you're logged in!"}
   end
 
   def find 
@@ -83,6 +84,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.fetch(:user, {})
+      params.require(:user).permit(:email, :first_name, :last_name, :password)
+      binding.pry
     end
 end
